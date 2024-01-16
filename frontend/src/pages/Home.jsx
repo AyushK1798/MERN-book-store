@@ -58,11 +58,7 @@ const Home = () => {
   const getAllBooks = () => {
     setLoading(true);
     axios
-      .get(APIURL, {
-        headers: {
-          Authorization: `Bearer J6qwnzJKVus0B6JbzenUo9c8`,
-        },
-      })
+      .get(APIURL)
       .then((res) => {
         if (res.data) {
           setBooks(res.data.data);
