@@ -34,8 +34,13 @@ router.post("/", async (request, response) => {
 // Route to get all data/entries
 router.get("/", async (request, response) => {
   try {
-    const books = await Book.find({});
-    return response.status(201).json({ count: books.length, data: books });
+    // const books = await Book.find({});
+    return response.status(201).json({ 
+      // count: books.length, 
+      data: {
+      "book":"yaa Book",
+      "car": "yaa car"
+    } });
   } catch (error) {
     console.log(error);
     response.status(500).send({ message: error.message });
