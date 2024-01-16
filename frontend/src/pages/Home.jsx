@@ -11,7 +11,8 @@ import ViewBook from "../components/ViewBook";
 import EditBook from "../components/EditBook";
 import CreateBook from "../components/CreateBook";
 
-const APIURL = "https://mern-book-store-backend-3dd914fjk-ayushk1798.vercel.app/books";
+const APIURL =
+  "https://mern-book-store-backend-3dd914fjk-ayushk1798.vercel.app/books";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -56,14 +57,20 @@ const Home = () => {
   };
   const getAllBooks = () => {
     setLoading(true);
-    axios.get(APIURL).then((res) => {
-      if (res.data) {
-        setBooks(res.data.data);
-        setLoading(false);
-      } else {
-        console.log(res.error);
-      }
-    });
+    axios
+      .get(APIURL, {
+        headers: {
+          Authorization: `Bearer J6qwnzJKVus0B6JbzenUo9c8`,
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          setBooks(res.data.data);
+          setLoading(false);
+        } else {
+          console.log(res.error);
+        }
+      });
   };
 
   useEffect(() => {
