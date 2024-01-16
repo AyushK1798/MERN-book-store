@@ -13,7 +13,7 @@ app.use(express.json());
 // middleware for handling cros policy
 app.use(
   cors({
-    origin: "https://mern-book-store-frontend-nzdvk0thi-ayushk1798.vercel.app",
+    origin: "https://mern-book-store-frontend-5m4zqfkph-ayushk1798.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
