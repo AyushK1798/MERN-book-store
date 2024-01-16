@@ -11,7 +11,7 @@ import ViewBook from "../components/ViewBook";
 import EditBook from "../components/EditBook";
 import CreateBook from "../components/CreateBook";
 
-const APIURL = "http://localhost:5555/books";
+const APIURL = "https://mern-book-store-backend-3dd914fjk-ayushk1798.vercel.app/books";
 
 const Home = () => {
   const navigate = useNavigate();

@@ -16,7 +16,7 @@ const ViewBook = (props) => {
   }, [id]);
 
   const getBook = (id) => {
-    axios.get(`http://localhost:5555/books/${id}`).then((res) => {
+    axios.get(`https://mern-book-store-backend-3dd914fjk-ayushk1798.vercel.app/books/${id}`).then((res) => {
       if (res.data) {
         setViewBook(res.data);
         setLoading(false);
