@@ -12,7 +12,7 @@ import EditBook from "../components/EditBook";
 import CreateBook from "../components/CreateBook";
 
 const APIURL =
-  "https://mern-book-store-backend-6uf9v8py7-ayushk1798.vercel.app/";
+  "https://mern-book-store-backend-244cdf7qz-ayushk1798.vercel.app/books";
 
 const Home = () => {
   const navigate = useNavigate();
