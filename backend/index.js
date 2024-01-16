@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import 'dotenv/config'
+import "dotenv/config";
 import mongoose from "mongoose";
 import bookRoutes from "./routes/bookRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -27,7 +27,6 @@ app.get("/", (request, response) => {
 app.use("/books", bookRoutes);
 app.use("/auth", authRoutes);
 
-
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -39,3 +38,4 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+module.exports = app;
