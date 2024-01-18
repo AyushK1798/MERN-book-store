@@ -23,7 +23,7 @@ app.use(
     allowedHeaders: ["Content-Type"],
   })
 );
-
+console.log(process.env.NODE_ENV)
 app.get("/", (request, response) => {
   console.log(request);
   return response.status(234).send("Welcome to Book Store");

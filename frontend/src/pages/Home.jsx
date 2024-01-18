@@ -15,7 +15,7 @@ const APIURL =
   import.meta.env.VITE_NODE_ENV === "development"
     ? "http://localhost:5555/books"
     : "https://mern-book-store-backend.vercel.app/books";
-console.log(import.meta.env.VITE_NODE_ENV)
+console.log(import.meta.env.VITE_NODE_ENV);
 const Home = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -51,7 +51,7 @@ const Home = () => {
         }
       });
       // Redirect to a page after successful deletion
-      navigate("/"); // Redirect to the books listing page or any other route
+      navigate("/home"); // Redirect to the books listing page or any other route
     } catch (error) {
       console.error("Error deleting book:", error);
       // Handle error state or display an error message
@@ -103,7 +103,7 @@ const Home = () => {
           <Modal.Title>Book Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ViewBook id={bookID} />
+          <ViewBook id={bookID} APIURL={APIURL} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseViewModal}>
@@ -178,45 +178,45 @@ const Home = () => {
               />
             </div>
             <div className="row">
-              {books.length > 0 ? books?.map((book) => (
-                <div
-                  key={book._id}
-                  className="col-md-3 col-lg-4 col-sm-12 m-2  book-card d-flex justify-content-between "
-                >
-                  <div>
-                    <strong>{book.title}</strong>
-                    <p>{book.author}</p>
-                    <p>{book.publishYear}</p>
+              {books.length > 0 ? (
+                books?.map((book) => (
+                  <div
+                    key={book._id}
+                    className="col-md-3 col-lg-4 col-sm-12 m-2  book-card d-flex justify-content-between "
+                  >
+                    <div>
+                      <strong>{book.title}</strong>
+                      <p>{book.author}</p>
+                      <p>{book.publishYear}</p>
+                    </div>
+                    <div className=" button-card">
+                      <CiViewTimeline
+                        className="card-buttons"
+                        onClick={() => {
+                          handleShowViewModal();
+                          setBookID(book._id);
+                        }}
+                      />
+                      <AiOutlineEdit
+                        className="card-buttons"
+                        onClick={() => {
+                          handleShowEditModal();
+                          setEditData(book);
+                        }}
+                      />
+                      <AiOutlineDelete
+                        className="card-buttons text-danger"
+                        onClick={() => {
+                          handleShowDeleteModal();
+                          setBookID(book._id);
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div className=" button-card">
-                    <CiViewTimeline
-                      className="card-buttons"
-                      onClick={() => {
-                        handleShowViewModal();
-                        setBookID(book._id);
-                      }}
-                    />
-                    <AiOutlineEdit
-                      className="card-buttons"
-                      onClick={() => {
-                        handleShowEditModal();
-                        setEditData(book);
-                      }}
-                    />
-                    <AiOutlineDelete
-                      className="card-buttons text-danger"
-                      onClick={() => {
-                        handleShowDeleteModal();
-                        setBookID(book._id);
-                      }}
-                    />
-                  </div>
-                </div>
-              )):
-              <div>
-                No Books
-              </div>
-              }
+                ))
+              ) : (
+                <div>No Books</div>
+              )}
             </div>
           </div>
         )}

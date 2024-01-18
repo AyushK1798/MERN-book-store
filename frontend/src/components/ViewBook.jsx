@@ -4,10 +4,7 @@ import { useEffect, useState } from "react";
 import BookImage from "../assets/book-img.webp";
 
 const ViewBook = (props) => {
-  const { id } = props;
-  console.log(id)
-  console.log(typeof(id))
-  // const { id } = useParams();
+  const { id, APIURL } = props;
   const [loading, setLoading] = useState(true);
   const [viewBook, setViewBook] = useState({});
 
@@ -16,7 +13,7 @@ const ViewBook = (props) => {
   }, [id]);
 
   const getBook = (id) => {
-    axios.get(`https://mern-book-store-backend-3dd914fjk-ayushk1798.vercel.app/books/${id}`).then((res) => {
+    axios.get(`${APIURL}/${id}`).then((res) => {
       if (res.data) {
         setViewBook(res.data);
         setLoading(false);
