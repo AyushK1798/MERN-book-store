@@ -12,8 +12,10 @@ import EditBook from "../components/EditBook";
 import CreateBook from "../components/CreateBook";
 
 const APIURL =
-  "https://mern-book-store-backend.vercel.app/books";
-
+  import.meta.env.VITE_NODE_ENV === "development"
+    ? "http://localhost:5555/books"
+    : "https://mern-book-store-backend.vercel.app/books";
+console.log(import.meta.env.VITE_NODE_ENV)
 const Home = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -57,16 +59,14 @@ const Home = () => {
   };
   const getAllBooks = () => {
     setLoading(true);
-    axios
-      .get(APIURL)
-      .then((res) => {
-        if (res.data) {
-          setBooks(res.data.data);
-          setLoading(false);
-        } else {
-          console.log(res.error);
-        }
-      });
+    axios.get(APIURL).then((res) => {
+      if (res.data) {
+        setBooks(res.data.data);
+        setLoading(false);
+      } else {
+        console.log(res.error);
+      }
+    });
   };
 
   useEffect(() => {
@@ -178,7 +178,7 @@ const Home = () => {
               />
             </div>
             <div className="row">
-              {books?.map((book) => (
+              {books.length > 0 ? books?.map((book) => (
                 <div
                   key={book._id}
                   className="col-md-3 col-lg-4 col-sm-12 m-2  book-card d-flex justify-content-between "
@@ -212,7 +212,11 @@ const Home = () => {
                     />
                   </div>
                 </div>
-              ))}
+              )):
+              <div>
+                No Books
+              </div>
+              }
             </div>
           </div>
         )}

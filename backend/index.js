@@ -13,7 +13,12 @@ app.use(express.json());
 // middleware for handling cros policy
 app.use(
   cors({
-    origin: "https://mern-book-store-frontend.vercel.app",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://mern-book-store-frontend.vercel.app"
+        : process.env.NODE_ENV === "development"
+        ? "http://localhost:5173"
+        : "", // Set to empty string or your desired default for other cases
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
@@ -36,7 +41,9 @@ mongoose
     });
   })
   .catch((error) => {
+    console.log("could not connect to DB");
+    console.log("MONGODB_URI", process.env.MONGODB_URI);
+    console.log("LOCAL_MONGODB_URI", process.env.LOCAL_MONGODB_URI);
     console.log(error);
   });
-  export default app;
-
+export default app;
