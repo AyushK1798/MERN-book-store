@@ -24,7 +24,7 @@ const Login = () => {
     e.preventDefault();
 
     await axios
-      .post(`${APIURL}/auth/login`, formData)
+      .post(`${APIURL}/login`, formData)
       .then((res) => {
         if (res.data) {
           localStorage.setItem("accessToken", res.data.accessToken);

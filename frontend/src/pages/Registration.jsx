@@ -58,7 +58,7 @@ const Registration = () => {
       setErrors(newErrors);
     } else {
       // Form submission logic (send data to server, etc.)
-      await axios.post(`${APIURL}/auth/registration`, formData).then((res) => {
+      await axios.post(`${APIURL}/registration`, formData).then((res) => {
         if (res.data) {
           alert(res.data.message);
           navigate("/auth/login");
@@ -126,7 +126,7 @@ const Registration = () => {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="mobile">
-        <Form.Label>mobile</Form.Label>
+        <Form.Label>Mobile</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter mobile number"
