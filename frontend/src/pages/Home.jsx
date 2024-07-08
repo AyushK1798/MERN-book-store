@@ -15,7 +15,8 @@ const APIURL =
   import.meta.env.VITE_NODE_ENV === "development"
     ? "http://localhost:5555/books"
     : "https://mern-book-store-backend.vercel.app/books";
-console.log(import.meta.env.VITE_NODE_ENV);
+
+
 const Home = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);

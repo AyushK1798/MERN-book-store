@@ -4,8 +4,11 @@ import axios from "axios";
 import "./registration.css";
 import { useNavigate } from "react-router-dom";
 
-export const APIURL = "https://mern-book-store-backend.vercel.app/auth";                       
-
+export const APIURL =
+  import.meta.env.VITE_NODE_ENV === "development"
+    ? "http://localhost:5555/auth"
+    : "https://mern-book-store-backend.vercel.app/auth";
+    
 const Registration = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

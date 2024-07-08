@@ -3,13 +3,14 @@ import { Form, Button } from "react-bootstrap";
 import "./registration.css";
 import axios from "axios";
 import { APIURL } from "./Registration";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -29,6 +30,7 @@ const Login = () => {
         if (res.data) {
           localStorage.setItem("accessToken", res.data.accessToken);
           alert(res.data.message);
+          navigate("/home");
         }
       })
       .catch((error) => {
@@ -71,6 +73,7 @@ const Login = () => {
       <Button variant="primary" type="submit">
         Login
       </Button>
+      <p><Link to={"/auth/forgot"}>Forgot Password?</Link></p>
     </Form>
   );
 };

@@ -54,6 +54,7 @@ router.post("/login", async (request, response) => {
     }
   }
 });
+import transporter from "../mailer.js";
 
 router.post("/forgot", async (req, res) => {
   const email = req.body.email;
@@ -61,16 +62,90 @@ router.post("/forgot", async (req, res) => {
     res.status(401).json("Email ID required");
   }
   const user = await Registration.findOne({ email });
-
+  const resetToken = uuidv4();
+  user.resetToken = resetToken;
+  // Email details
+  const mailOptions = {
+    from: "eeviib31@rgcer.edu.in",
+    to: user.email,
+    subject: "Test Email",
+    text:
+      process.env.NODE_ENV === "development"
+        ? `This is your password Reset Link http://localhost:5173/auth/reset/${user.resetToken}`
+        : `This is your password Reset Link https://mern-book-store-frontend.vercel.app/auth/reset/${user.resetToken}`,
+  };
   if (!user) {
-    res.status(402).json("User Not Found")
+    res.status(402).json("User Not Found");
   }
-  if(user){
-    const resetToken = uuidv4();
+  if (user) {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error.message);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
+    await user.save();
+
     res.status(200).send({
       message: "Password reset link sent to Email, please check Email.",
-      resetToken
     });
+  }
+});
+router.get("/validateResetId/:resetToken", async (req, res) => {
+  try {
+    const { resetToken } = req.params;
+    if (!resetToken) {
+      return res.status(400).send("Invalid Reset Link");
+    }
+
+    const user = await Registration.findOne({ resetToken });
+
+    if (user) {
+      return res.status(200).json({ message: "Access Granted", id: user._id });
+    } else {
+      return res.status(401).send("Access Denied");
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+router.post("/reset", async (req, res) => {
+  const resetToken = req.body.resetToken;
+  if (!resetToken) {
+    return res.status(401).json("Reset Token Missing");
+  }
+
+  const newPassword = req.body.newPassword;
+  if (!newPassword) {
+    return res.status(400).json("New Password Missing");
+  }
+
+  try {
+    // Find the user by reset token
+    const user = await Registration.findOne({ resetToken });
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(401).json("Invalid Reset Token");
+    }
+
+    // Update the user's password
+    user.password = newPassword;
+
+    // Clear the reset token
+    user.resetToken = undefined;
+
+    // Save the updated user
+    await user.save();
+
+    // Respond with a success message
+    return res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
   }
 });
 

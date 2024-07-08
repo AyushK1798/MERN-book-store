@@ -18,7 +18,7 @@ app.use(
         ? "https://mern-book-store-frontend.vercel.app"
         : process.env.NODE_ENV === "development"
         ? "http://localhost:5173"
-        : "", // Set to empty string or your desired default for other cases
+        : "http://localhost:3001", // Set to empty string or your desired default for other cases
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
@@ -32,7 +32,8 @@ app.use("/books", bookRoutes);
 app.use("/auth", authRoutes);
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.NODE_ENV === "production"
+  ? process.env.MONGODB_URI : "mongodb://127.0.0.1:27017")
   .then(() => {
     console.log("APP connected with DB");
     app.listen(process.env.PORT, () => {
