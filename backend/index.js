@@ -11,18 +11,20 @@ const app = express();
 app.use(express.json());
 
 // middleware for handling cros policy
-app.use(
-  cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://mern-book-store-frontend.vercel.app"
-        : process.env.NODE_ENV === "development"
-        ? "http://localhost:5173"
-        : "http://localhost:3001", // Set to empty string or your desired default for other cases
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+// app.use(
+//   cors({
+//     origin:
+//       process.env.NODE_ENV === "production"
+//         ? "https://mern-book-store-frontend.vercel.app"
+//         : process.env.NODE_ENV === "development"
+//         ? "http://localhost:5173"
+//         : "http://localhost:3001", // Set to empty string or your desired default for other cases
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type"],
+//   })
+// );
+app.use(cors());
+
 app.get("/", (request, response) => {
   console.log(request);
   return response.status(234).send("Welcome to Book Store");
