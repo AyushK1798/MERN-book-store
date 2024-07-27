@@ -30,7 +30,7 @@ const Login = () => {
         if (res.data) {
           localStorage.setItem("accessToken", res.data.accessToken);
           alert(res.data.message);
-          navigate("/home");
+          navigate("/");
         }
       })
       .catch((error) => {
