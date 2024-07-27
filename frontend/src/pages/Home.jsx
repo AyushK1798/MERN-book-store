@@ -14,8 +14,7 @@ import CreateBook from "../components/CreateBook";
 const APIURL =
   import.meta.env.VITE_NODE_ENV === "development"
     ? "http://localhost:5555/books"
-    : "https://mern-book-store-backend.vercel.app/books";
-
+    : import.meta.env.VITE_BASE_API;
 
 const Home = () => {
   const navigate = useNavigate();
