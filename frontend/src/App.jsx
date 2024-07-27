@@ -12,7 +12,7 @@ function App() {
     <Container>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/auth/registration" element={<Registration />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/forgot" element={<ForgotPassword />} />
