@@ -10,7 +10,7 @@ p {
   box-shadow: 5px 5px 5px rgb(218, 218, 218);
   transition: 0.5s;
 }
-.book-card:hover{
+.book-card:hover {
   background-color: rgb(230, 242, 255);
 }
 .book-card .card-buttons {
@@ -18,12 +18,12 @@ p {
   border-radius: 50%;
   font-size: 20px;
   transition: 0.5s;
-  transition: transform 150ms ease-out
+  transition: transform 150ms ease-out;
 }
 .book-card .card-buttons:hover {
   /* font-size: 22px; */
   transform: scale(1.3);
-  transform-origin: center
+  transform-origin: center;
 }
 .button-card {
   height: 75%;
@@ -53,13 +53,18 @@ p {
   height: 400px;
   width: 300px;
 }
-header{
+header {
   background-color: #a8dadc;
   padding: 20px 30px;
 }
-a{
+a {
   color: rgb(16, 16, 16);
   font-size: large;
   font-weight: 700;
   text-decoration: none;
+}
+
+.toast-style {
+  margin: auto;
+  color: white;
 }

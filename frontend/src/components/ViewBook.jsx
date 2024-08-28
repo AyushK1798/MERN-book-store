@@ -12,10 +12,11 @@ const ViewBook = (props) => {
     getBook(id);
   }, [id]);
 
+
   const getBook = (id) => {
     axios.get(`${APIURL}/${id}`).then((res) => {
       if (res.data) {
-        setViewBook(res.data);
+        setViewBook(res.data.data);
         setLoading(false);
       } else {
         console.log(res.error);
@@ -31,7 +32,10 @@ const ViewBook = (props) => {
           {!viewBook ? (
             <p>Book Not Found</p>
           ) : (
-            <div className="d-flex align-items-center gap-3" key={viewBook._id}>
+            <div
+              className="d-flex align-items-center gap-3 "
+              key={viewBook._id}
+            >
               <div>
                 <img src={BookImage} alt="" className="book-image" />
               </div>

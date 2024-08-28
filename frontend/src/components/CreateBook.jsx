@@ -2,9 +2,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify"; // Import Toast and ToastContainer components
+
 
 const CreateBook = ({ APIURL, handleCloseAddModal, getAllBooks }) => {
-
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
@@ -19,7 +20,7 @@ const CreateBook = ({ APIURL, handleCloseAddModal, getAllBooks }) => {
     axios.post(APIURL, newBook).then((res) => {
       if (res.data) {
         handleCloseAddModal();
-        alert(res.data.message);
+        toast.success(res.data.message); // Show success toast
         getAllBooks();
       } else {
         console.log(res);

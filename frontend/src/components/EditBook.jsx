@@ -2,6 +2,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify"; // Import Toast and ToastContainer components
+
 
 const EditBook = ({ editData, APIURL ,getAllBooks , handleCloseEditModal}) => {
 
@@ -20,7 +22,7 @@ const handleEdit =async () =>{
 await axios.put(`${APIURL}/${editData?._id}`, editedBook).then((res) => {
   if (res.data) {
     handleCloseEditModal();
-    alert(res.data.message);
+    toast.success(res.data.message); // Show success toast
     getAllBooks();
   } else {
     console.log(res);
